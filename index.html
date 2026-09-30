@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Expense & Budget Visualizer</title>
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- External CSS (Sesuai Folder Rules) -->
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="app-container">
+    <!-- Header & Dark Mode Toggle -->
+    <header class="header">
+      <div>
+        <h1>Expense & Budget Visualizer</h1>
+        <p class="subtitle">Track your daily spending easily</p>
+      </div>
+      <button id="themeToggleBtn" class="btn-icon" title="Toggle Dark/Light Mode">
+        <span id="themeIcon">🌙</span>
+      </button>
+    </header>
+
+    <!-- Total Balance Card -->
+    <section class="balance-card">
+      <span class="balance-title">TOTAL BALANCE</span>
+      <h2 id="totalBalance" class="balance-amount">$0.00</h2>
+    </section>
+
+    <!-- Main Dashboard Grid -->
+    <main class="dashboard-grid">
+      <!-- Left Column: Transactions List -->
+      <section class="card transactions-section">
+        <div class="section-header">
+          <h3>Transactions</h3>
+          <!-- Optional Challenge: Sort -->
+          <div class="filter-controls">
+            <label for="sortSelect">Sort:</label>
+            <select id="sortSelect">
+              <option value="newest">Newest</option>
+              <option value="amount-high">Highest Amount</option>
+              <option value="amount-low">Lowest Amount</option>
+              <option value="category">Category</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Optional Challenge: Spending Limit Warning Configuration -->
+        <div class="limit-setting">
+          <label for="spendingLimitInput">Highlight spending over: $</label>
+          <input type="number" id="spendingLimitInput" min="0" value="50" />
+        </div>
+
+        <!-- Scrollable Transaction List -->
+        <div id="transactionList" class="transaction-list">
+          <!-- Item list rendered by JS -->
+        </div>
+      </section>
+
+      <!-- Right Column: Pie Chart -->
+      <section class="card chart-section">
+        <h3>Spending by Category</h3>
+        <div class="chart-wrapper">
+          <canvas id="categoryChart"></canvas>
+          <p id="emptyChartMessage" class="empty-msg hidden">No transactions recorded yet.</p>
+        </div>
+      </section>
+    </main>
+
+    <!-- Bottom: Add Transaction Form -->
+    <section class="card form-section">
+      <h3>Add Transaction</h3>
+      <form id="transactionForm" novalidate>
+        <div class="form-group">
+          <label for="itemName">Item Name</label>
+          <input type="text" id="itemName" placeholder="e.g. Cilok / Coffee / Bus Ticket" required />
+          <span class="error-msg" id="nameError">Item name is required.</span>
+        </div>
+
+        <div class="form-group">
+          <label for="amount">Amount ($)</label>
+          <input type="number" id="amount" step="0.01" min="0.01" placeholder="0.00" required />
+          <span class="error-msg" id="amountError">Please enter a valid amount greater than 0.</span>
+        </div>
+
+        <div class="form-group">
+          <label for="category">Category</label>
+          <select id="category" required>
+            <option value="" disabled selected>Select category</option>
+            <option value="Food">Food</option>
+            <option value="Transport">Transport</option>
+            <option value="Fun">Fun</option>
+          </select>
+          <span class="error-msg" id="categoryError">Please select a category.</span>
+        </div>
+
+        <button type="submit" class="btn btn-primary" id="submitBtn">Add Transaction</button>
+      </form>
+    </section>
+  </div>
+
+  <!-- External JavaScript (Sesuai Folder Rules) -->
+  <script src="js/app.js"></script>
+</body>
+</html>
